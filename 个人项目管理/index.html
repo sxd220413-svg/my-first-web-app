@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人效率工具集</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 侧边栏导航 -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h1>📋 效率工具</h1>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item active" data-module="notes">
+                    <span class="nav-icon">📝</span>
+                    <span class="nav-text">记事本</span>
+                </li>
+                <li class="nav-item" data-module="todos">
+                    <span class="nav-icon">✅</span>
+                    <span class="nav-text">待办清单</span>
+                </li>
+                <li class="nav-item" data-module="ai-chat">
+                    <span class="nav-icon">🤖</span>
+                    <span class="nav-text">AI对话</span>
+                </li>
+                <li class="nav-item" data-module="pomodoro">
+                    <span class="nav-icon">🍅</span>
+                    <span class="nav-text">番茄钟</span>
+                </li>
+                <li class="nav-item" data-module="projects">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">项目管理</span>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <!-- 记事本模块 -->
+            <div id="notes-module" class="module active">
+                <div class="module-header">
+                    <h2>📝 记事本</h2>
+                    <button class="btn btn-primary" id="add-folder-btn">新建文件夹</button>
+                </div>
+                <div class="notes-container">
+                    <div class="folders-panel">
+                        <h3>文件夹</h3>
+                        <div id="folders-list">
+                            <!-- 文件夹列表将在这里动态生成 -->
+                        </div>
+                    </div>
+                    <div class="notes-panel">
+                        <div class="notes-header">
+                            <h3 id="current-folder-name">选择文件夹</h3>
+                            <button class="btn btn-secondary" id="add-note-btn" disabled>新建笔记</button>
+                        </div>
+                        <div id="notes-list">
+                            <!-- 笔记列表将在这里动态生成 -->
+                        </div>
+                    </div>
+                    <div class="note-editor">
+                        <div id="note-editor-content">
+                            <p>请选择或创建一个笔记开始编辑</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 待办清单模块 -->
+            <div id="todos-module" class="module">
+                <div class="module-header">
+                    <h2>✅ 待办清单</h2>
+                    <button class="btn btn-primary" id="add-todo-btn">添加任务</button>
+                </div>
+                <div class="todos-container">
+                    <div class="todos-filters">
+                        <button class="filter-btn active" data-filter="all">全部</button>
+                        <button class="filter-btn" data-filter="pending">未完成</button>
+                        <button class="filter-btn" data-filter="completed">已完成</button>
+                    </div>
+                    <div id="todos-list">
+                        <!-- 待办事项列表将在这里动态生成 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI对话模块 -->
+            <div id="ai-chat-module" class="module">
+                <div class="module-header">
+                    <h2>🤖 AI对话</h2>
+                    <button class="btn btn-secondary" id="new-chat-btn">新对话</button>
+                </div>
+                <div class="chat-container">
+                    <div class="chat-history">
+                        <div id="chat-messages">
+                            <!-- 聊天消息将在这里动态生成 -->
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <div class="input-group">
+                            <textarea id="chat-input" placeholder="输入您的问题..." rows="3"></textarea>
+                            <button class="btn btn-primary" id="send-message-btn">发送</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 番茄钟模块 -->
+            <div id="pomodoro-module" class="module">
+                <div class="module-header">
+                    <h2>🍅 番茄钟</h2>
+                </div>
+                <div class="pomodoro-container">
+                    <div class="timer-display">
+                        <div class="timer-circle">
+                            <div class="timer-time" id="timer-display">25:00</div>
+                            <div class="timer-mode" id="timer-mode">工作时间</div>
+                        </div>
+                    </div>
+                    <div class="timer-controls">
+                        <button class="btn btn-primary" id="start-timer-btn">开始</button>
+                        <button class="btn btn-secondary" id="pause-timer-btn" disabled>暂停</button>
+                        <button class="btn btn-secondary" id="reset-timer-btn">重置</button>
+                    </div>
+                    <div class="timer-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">今日完成:</span>
+                            <span class="stat-value" id="today-count">0</span>
+                        </div>
+                        <div class="timer-settings">
+                            <label>工作时间: <input type="number" id="work-time" value="25" min="1" max="60"> 分钟</label>
+                            <label>休息时间: <input type="number" id="break-time" value="5" min="1" max="30"> 分钟</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 项目管理模块 -->
+            <div id="projects-module" class="module">
+                <div class="module-header">
+                    <h2>📊 项目管理</h2>
+                    <button class="btn btn-primary" id="add-project-btn">新建项目</button>
+                </div>
+                <div class="projects-container">
+                    <div id="projects-list">
+                        <!-- 项目列表将在这里动态生成 -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 模态框 -->
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modal-title">标题</h3>
+                <button class="modal-close" id="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- 模态框内容将在这里动态生成 -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="modal-cancel-btn">取消</button>
+                <button class="btn btn-primary" id="modal-confirm-btn">确认</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript文件 -->
+    <script src="js/storage.js"></script>
+    <script src="js/modules/notes.js"></script>
+    <script src="js/modules/todos.js"></script>
+    <script src="js/modules/ai-chat.js"></script>
+    <script src="js/modules/pomodoro.js"></script>
+    <script src="js/modules/projects.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
